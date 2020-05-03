@@ -21,6 +21,7 @@ window.addEventListener('load', function(e)
         });
 
     const displayCOVID19Data = async(data) => {
+        console.log(data);
         let global = await(data.Global);
         let jsonDate = await(data.Date);
 
