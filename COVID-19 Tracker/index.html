@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <!-- Bootstrap 4.4.x CSS-->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+
+    <!--Main Style CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" href="img/attention.png" style="width: 100%">
+    <title>COVID-19 Tracker</title>
+   
+  </head>
+  <body>
+    
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="index.html"><img src="img/attention.png" style="width: 40px;" alt="Virus attention icon"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                
+              </ul>
+              <!-- <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+              </form> -->
+              <button type="button" class="btn btn-light" data-toggle="modal" data-target="#pageModalLong" data-toggle="tooltip" title="Please click here if you are experiencing any problems on this page. (No Data etc.)">
+                <i class="fas fa-question-circle"></i>
+              </button>
+            </div>
+          </nav>
+          <div class="modal fade" id="pageModalLong" tabindex="-1" role="dialog" aria-labelledby="pageModalLongTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle"><i class="fas fa-exclamation-triangle"></i> Note:</h5>
+                </div>
+                <div class="modal-body">
+                  <h5>No Data Showing</h5>
+                  <p>If the page is loaded and you do not see any data, there are a few possibilities why:</p>
+                  <ul>
+                    <li>API currently is not working</li>
+                    <li>Too Many Requests in a given amount of time, <span class="badge badge-danger">(Error: 429).</span></li>
+                    <li>Failed to Fetch Data</li>
+                  </ul>
+                  <p>In this case, just close the page and wait for a few minutes.</p>
+                  <p>Worst case scenario, please, come back later.</p>
+                  <p><strong>Please, inform me if such issues will appear:</strong></p>
+                  <ul>
+                    <li><a href="https://www.linkedin.com/in/oleksandrshchegol/" target="_blank"><i class="fab fa-linkedin"></i> Oleksandr</a></li>
+                    <li><i class="fas fa-envelope"></i> oleksandr93@yahoo.ca</li>
+                  </ul>
+                  <small>COVID-19 API Data provided by <a href="https://documenter.getpostman.com/view/10808728/SzS8rjbc?version=latest" target="_blank">Postman</a></small>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
+                </div>
+              </div>
+            </div>
+          </div>
+    </header>
+
+    <main>
+      <div class="container-fluid">
+          <div class="jumbotron date-title">
+              <h1>C<span><img src="img/covid19.png" alt="COVID-19 Image"></span>VID-19</h1>
+              <hr>
+              <p class="date-time"> <span class="badge badge-info"></span></p>
+          </div>
+
+          <div class="alert alert-danger alert-dismissible fade show error-msg" role="alert">
+            <strong>Attention!</strong> <span></span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="row display">
+            <div class="col-md-3 card-confirmed">
+                <h2><i class="fas fa-user-check"></i> Total Confirmed</h2>
+                <hr>
+                <label class="total-confirmed-label" id="total-confirmed"></label>
+                <div class="new-stats">
+                  <h4 class="badge badge-warning">New</h4>
+                  <p class="new-confirmed badge badge-pill badge-warning"><i class="fas fa-plus"></i> <span id="new-confirmed"></span></p>
+                </div>
+            </div>
+
+            <div class="col-md-3 card-recovered">
+              <h2><i class="fas fa-user-plus"></i> Total Recovered</h2>
+              <hr>
+              <label class="total-recovered-label" id="total-recovered"></label>
+              <div class="new-stats">
+                <h4 class="badge badge-success">New</h4>
+                <p class="new-recovered badge badge-pill badge-success"><i class="fas fa-plus"></i> <span id="new-recovered"></span></p>
+             </div>
+            </div>
+
+            <div class="col-md-3 card-deaths">
+              <h2><i class="fas fa-user-minus"></i> Total Deaths</h2>
+              <hr>
+              <label class="total-deaths-label" id="total-deaths"></label>
+              <div class="new-stats">
+                <h4 class="badge badge-danger">New</h4>
+                <p class="new-deaths badge badge-pill badge-danger"><i class="fas fa-plus"></i> <span id="new-deaths"></span></p>
+             </div>
+            </div>
+          </div>
+          <div class="countries">
+            <h3>Country Statistics</h3>
+            <div class="row display-country">
+              <div class="col-md-3">
+                <form >
+                  <div class="form-group">
+                    <label for="country-select">Countries</label>
+                    <select class="form-control" id="country-select">
+                        
+                    </select>
+                  </div>
+                </form>
+                <div class="card card-new-stats hidden-card" style="width: 100%">
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item country-new-confirmed">New Confirmed <span class="badge badge-pill badge-warning"></span></li>
+                    <li class="list-group-item country-new-recovered">New Recovered <span class="badge badge-pill badge-success"></span></li>
+                    <li class="list-group-item country-new-deaths">New Deaths <span class="badge badge-pill badge-danger"></span></li>
+                    <li class="list-group-item country-date">Updated <span class="badge badge-pill badge-light"></span></li>
+                  </ul>
+                </div>
+              </div>
+              
+              <div class="col-md-9 country-data">
+                  <p class="c-data"></p>
+                  <div id="covidChart"></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-14">
+            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseData" aria-expanded="false" aria-controls="collapseExample">
+              All Countries <i class="fas fa-level-down-alt"></i>
+            </button>
+            <div class="collapse collapse-data" id="collapseData">
+              <div class="card card-body display-all-countries-data">
+                <table class="table table-hover table-dark table-countries-data">
+                  <thead>
+                    <tr>
+                      <th scope="col">Contry</th>
+                      <th scope="col">Total Confirmed</th>
+                      <th scope="col">Total Recovered</th>
+                      <th scope="col">Total Deaths</th>
+                      <th scope="col">New Confirmed</th>
+                      <th scope="col">New Recovered</th>
+                      <th scope="col">New Deaths</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+          </div>
+      </div>
+    </main>
+
+ 
+  <footer class="page-footer">
+    <div class="footer-copyright text-center py-3">© 2020 by:
+      <a href="https://www.linkedin.com/in/oleksandrshchegol/" target="_blank"> Oleksandr <img src="img/icon.png" style="width: 50px;" alt="OS Logo"></a>
+    </div>
+  </footer>
+
+   
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="js/scripts/jquery-3.4.1.slim.min.js"></script>
+    <script src="js/scripts/popper.min.js"></script>
+    <script src="js/scripts/bootstrap.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
+    <!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script> -->
+    <!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/countup.js/1.8.2/countUp.min.js'></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="js/scripts/countUp.min.js"></script>
+    <script src="js/main.js"></script>
+    
+  </body>
+</html>

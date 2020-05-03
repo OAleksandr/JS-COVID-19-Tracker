@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope&family=Righteous&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Teko:wght@500&display=swap');
+
+main h1
+{
+    text-align: center;
+    font-weight: bold;
+    font-size: 100px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    position: relative;
+}
+main h1 span img
+{
+    width: 100px;
+    padding-bottom: 14px;
+    position: relative;
+}
+main .jumbotron
+{
+    background-image: url(../img/world-map.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    padding: 150px;
+    
+}
+main .jumbotron p.date-time
+{
+    text-align: center;
+}
+
+@media screen and (max-width:576px)
+{
+    main h1
+    {
+        text-align: center;
+        font-weight: bold;
+        font-size: 40px;
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+       
+    }
+    main h1 span img
+    {
+        width: 60px;
+        padding-bottom: 14px;
+    }
+    main .jumbotron
+    {
+        padding: 30px;
+    }
+}
+@media screen and (max-width:760px)
+{
+    main h1
+    {
+        text-align: center;
+        font-weight: bold;
+        font-size: 40px;
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        padding-top: 30px;
+       
+    }
+    main h1 span img
+    {
+        width: 60px;
+        padding-bottom: 14px;
+    }
+    main .jumbotron
+    {
+        padding: 30px;
+    }
+}
+
+main .display .card-confirmed, .card-recovered, .card-deaths
+{
+    margin: auto;
+    background-color: rgba(128, 128, 128, 0.089);
+    border-radius: 3px;
+    box-shadow: 0 8px 6px -6px black;
+}
+
+main .display .card-confirmed
+{
+    border-left: 7px solid yellow;
+    text-align: center;
+    padding: 10px;
+}
+main .display .card-recovered
+{
+    border-left: 7px solid greenyellow;
+    text-align: center;
+    padding: 10px;
+}
+main .display .card-deaths
+{
+    border-left: 7px solid red;
+    text-align: center;
+    padding: 10px;
+}
+
+main .display label
+{
+    font-size: 40px;
+    font-family: 'Teko', sans-serif;
+}
+
+main .display h2
+{
+    text-transform: uppercase;
+    font-weight: bold;
+    font-family: 'Righteous', cursive;
+}
+
+main .display .card-confirmed, .card-recovered, .card-deaths, .new-stats h4 p
+{
+    font-size: 20px;
+}
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+main .countries
+{
+    margin-top: 30px;
+}
+main .countries h3
+{
+    text-align: center;
+    font-size: 60px;
+    margin: 0 auto;
+    margin-bottom: 30px;
+}
+
+.error-msg
+{
+    text-align: center;
+    width: 50%;
+    margin: 0 auto;
+    margin-bottom: 30px;
+    display: none;
+}
+
+.hidden-card
+{
+    display: none;
+}
+
+.collapse-data
+{
+    margin-top: 30px;
+}
+
+footer
+{
+    margin-top: 30px;
+}
