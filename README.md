@@ -1,5 +1,5 @@
 # JS-COVID-19-Tracker
-COVID-19 Tracker
+Simple JS COVID-19 Tracker
 ***
 ![](Images/covid-19-tracker-1.png)
 ***
