@@ -1,6 +1,6 @@
 # JS-COVID-19-Tracker
 Simple JS COVID-19 Tracker
-> __API:__ API provided by [Postman](https://documenter.getpostman.com/view/10808728/SzS8rjbc?version=latest "Coronavirus COVID19 API").
+> __API:__ provided by [Postman](https://documenter.getpostman.com/view/10808728/SzS8rjbc?version=latest "Coronavirus COVID19 API").
 ***
 ![](Images/covid-19-tracker-1.png)
 ***
