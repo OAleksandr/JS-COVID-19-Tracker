@@ -1,6 +1,8 @@
 window.addEventListener('load', function(e) 
 {
-    const COVID_19_API_SUMMARY = 'https://api.covid19api.com/summary';
+    const COVID_19_API_ALL = 'https://disease.sh/v3/covid-19/all';
+    const COVID_19_API_COUNTRIES = 'https://disease.sh/v3/covid-19/countries';
+    const APEXCHARTS_URL = 'https://cdn.jsdelivr.net/npm/apexcharts@8.7.0/dist/apexcharts.min.js';
 
     //Display Containers
     let displayInfo = document.querySelector(".display");
@@ -10,14 +12,72 @@ window.addEventListener('load', function(e)
     let errMsg = document.querySelector(".error-msg");
     let errMsgContent = document.querySelector(".error-msg span");
 
-    fetch (COVID_19_API_SUMMARY).then((response) => {
-        return response.json()
-        }).then((covidData) => {
-        displayCOVID19Data(covidData);
+    const showError = (err) => {
+        errMsg.classList.remove("error-msg");
+        errMsgContent.textContent = `${err}`;
+    }
+
+    //Load the Chart Library Only When the First Country is Selected
+    let apexChartsLoading;
+
+    const loadApexCharts = () => {
+        if(!apexChartsLoading)
+        {
+            apexChartsLoading = new Promise((resolve, reject) => {
+                let script = document.createElement('script');
+                script.src = APEXCHARTS_URL;
+                script.onload = resolve;
+                script.onerror = () => {
+                    apexChartsLoading = null;
+                    reject(new Error('Failed to load the chart library'));
+                };
+                document.head.appendChild(script);
+            });
+        }
+        return apexChartsLoading;
+    }
+
+    const fetchJson = (url) => {
+        return fetch(url).then((response) => {
+            if(!response.ok)
+            {
+                throw new Error(`Request failed with status ${response.status}`);
+            }
+            return response.json();
+        });
+    }
+
+    //Convert disease.sh Responses to the Shape the Display Functions Use
+    const normalizeData = (all, countries) => {
+        return {
+            Date: all.updated,
+            Global: {
+                TotalConfirmed: all.cases,
+                TotalRecovered: all.recovered,
+                TotalDeaths: all.deaths,
+                NewConfirmed: all.todayCases,
+                NewRecovered: all.todayRecovered,
+                NewDeaths: all.todayDeaths
+            },
+            Countries: countries.map((c) => ({
+                Country: c.country,
+                CountryCode: c.countryInfo.iso2 || 'N/A',
+                Date: c.updated,
+                TotalConfirmed: c.cases,
+                TotalRecovered: c.recovered,
+                TotalDeaths: c.deaths,
+                NewConfirmed: c.todayCases,
+                NewRecovered: c.todayRecovered,
+                NewDeaths: c.todayDeaths
+            }))
+        };
+    }
+
+    Promise.all([fetchJson(COVID_19_API_ALL), fetchJson(COVID_19_API_COUNTRIES)]).then(([all, countries]) => {
+        return displayCOVID19Data(normalizeData(all, countries));
         }).catch((err) => {
              console.log(`Some error(s) occured: ${err}`);
-             errMsg.classList.remove("error-msg");
-             errMsgContent.textContent = `${err}`;
+             showError(err);
         });
 
     const displayCOVID19Data = async(data) => {
@@ -76,7 +136,7 @@ window.addEventListener('load', function(e)
         let countNewRecovered = new CountUp("new-recovered", 0, newRecovered);
         countNewRecovered.start();
 
-        let countNewDeaths = new CountUp("new-deaths", 9, newDeaths);
+        let countNewDeaths = new CountUp("new-deaths", 0, newDeaths);
         countNewDeaths.start();
 
         displayDataByCountry(data);
@@ -93,6 +153,15 @@ window.addEventListener('load', function(e)
 
         let option;
         let data = country.Countries;
+        let chart;
+
+        //Placeholder, so the First Country Can Trigger a Change
+        option = document.createElement('option');
+        option.text = 'Select a country';
+        option.value = '';
+        option.disabled = true;
+        option.selected = true;
+        dropdown.add(option);
 
         //Populate Dropdown with Countries
         for (let i = 0; i < data.length; i++) 
@@ -188,12 +257,44 @@ window.addEventListener('load', function(e)
               style: {
                 colors: ['#000000']
               }
-            }
+            },
+            responsive: [{
+              breakpoint: 768,
+              options: {
+                chart: {
+                  height: 260,
+                  toolbar: {
+                    show: false
+                  }
+                },
+                title: {
+                  style: {
+                    fontSize: '12px'
+                  }
+                },
+                legend: {
+                  offsetX: 0
+                }
+              }
+            }]
           };
   
-          var chart = new ApexCharts(document.querySelector("#covidChart"), options);
-          chart.render();
-          chart.resetSeries();
+          loadApexCharts().then(() => {
+              //Another Country Was Selected While the Library Was Loading
+              if(e.target.value !== optionValue)
+              {
+                  return;
+              }
+
+              if(chart)
+              {
+                  chart.destroy();
+              }
+
+              chart = new ApexCharts(document.querySelector("#covidChart"), options);
+              chart.render();
+              chart.resetSeries();
+          }).catch(showError);
         })//Event Listener End
 
     }//displayDataByCountry End

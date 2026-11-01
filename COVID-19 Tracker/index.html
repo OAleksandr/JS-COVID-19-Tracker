@@ -17,7 +17,6 @@
 
     <!-- Bootstrap 4.4.x CSS-->
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/bootstrap.css">
 
     <!--Main Style CSS -->
     <link rel="stylesheet" href="css/styles.css">
@@ -28,24 +27,15 @@
   <body>
     
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-light bg-light">
             <a class="navbar-brand" href="index.html"><img src="img/attention.png" style="width: 40px;" alt="Virus attention icon"></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
+            <!-- <form class="form-inline my-2 my-lg-0">
+              <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form> -->
+            <button type="button" class="btn btn-light" data-toggle="modal" data-target="#pageModalLong" aria-label="Help" title="Please click here if you are experiencing any problems on this page. (No Data etc.)">
+              <i class="fas fa-question-circle"></i>
             </button>
-          
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav mr-auto">
-                
-              </ul>
-              <!-- <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-              </form> -->
-              <button type="button" class="btn btn-light" data-toggle="modal" data-target="#pageModalLong" data-toggle="tooltip" title="Please click here if you are experiencing any problems on this page. (No Data etc.)">
-                <i class="fas fa-question-circle"></i>
-              </button>
-            </div>
           </nav>
           <div class="modal fade" id="pageModalLong" tabindex="-1" role="dialog" aria-labelledby="pageModalLongTitle" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -68,7 +58,7 @@
                     <li><a href="https://www.linkedin.com/in/oleksandrshchegol/" target="_blank"><i class="fab fa-linkedin"></i> Oleksandr</a></li>
                     <li><i class="fas fa-envelope"></i> oleksandr93@yahoo.ca</li>
                   </ul>
-                  <small>COVID-19 API Data provided by <a href="https://documenter.getpostman.com/view/10808728/SzS8rjbc?version=latest" target="_blank">Postman</a></small>
+                  <small>COVID-19 API Data provided by <a href="https://disease.sh" target="_blank">disease.sh</a></small>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
@@ -81,7 +71,7 @@
     <main>
       <div class="container-fluid">
           <div class="jumbotron date-title">
-              <h1>C<span><img src="img/covid19.png" alt="COVID-19 Image"></span>VID-19</h1>
+              <h1>C<span><img src="img/covid19.webp" alt="COVID-19 Image"></span>VID-19</h1>
               <hr>
               <p class="date-time"> <span class="badge badge-info"></span></p>
           </div>
@@ -92,8 +82,8 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="row display">
-            <div class="col-md-3 card-confirmed">
+          <div class="display">
+            <div class="card-confirmed">
                 <h2><i class="fas fa-user-check"></i> Total Confirmed</h2>
                 <hr>
                 <label class="total-confirmed-label" id="total-confirmed"></label>
@@ -103,7 +93,7 @@
                 </div>
             </div>
 
-            <div class="col-md-3 card-recovered">
+            <div class="card-recovered">
               <h2><i class="fas fa-user-plus"></i> Total Recovered</h2>
               <hr>
               <label class="total-recovered-label" id="total-recovered"></label>
@@ -113,7 +103,7 @@
              </div>
             </div>
 
-            <div class="col-md-3 card-deaths">
+            <div class="card-deaths">
               <h2><i class="fas fa-user-minus"></i> Total Deaths</h2>
               <hr>
               <label class="total-deaths-label" id="total-deaths"></label>
@@ -126,7 +116,7 @@
           <div class="countries">
             <h3>Country Statistics</h3>
             <div class="row display-country">
-              <div class="col-md-3">
+              <div class="col-lg-3">
                 <form >
                   <div class="form-group">
                     <label for="country-select">Countries</label>
@@ -145,22 +135,23 @@
                 </div>
               </div>
               
-              <div class="col-md-9 country-data">
+              <div class="col-lg-9 country-data">
                   <p class="c-data"></p>
                   <div id="covidChart"></div>
               </div>
             </div>
           </div>
-          <div class="col-md-14">
+          <div>
             <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseData" aria-expanded="false" aria-controls="collapseExample">
               All Countries <i class="fas fa-level-down-alt"></i>
             </button>
             <div class="collapse collapse-data" id="collapseData">
               <div class="card card-body display-all-countries-data">
+                <div class="table-responsive table-countries-data-wrapper">
                 <table class="table table-hover table-dark table-countries-data">
                   <thead>
                     <tr>
-                      <th scope="col">Contry</th>
+                      <th scope="col">Country</th>
                       <th scope="col">Total Confirmed</th>
                       <th scope="col">Total Recovered</th>
                       <th scope="col">Total Deaths</th>
@@ -171,7 +162,9 @@
                   </thead>
                   <tbody></tbody>
                 </table>
+                </div>
               </div>
+            </div>
           </div>
       </div>
     </main>
@@ -191,7 +184,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
     <!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script> -->
     <!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/countup.js/1.8.2/countUp.min.js'></script> -->
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="js/scripts/countUp.min.js"></script>
     <script src="js/main.js"></script>
     
